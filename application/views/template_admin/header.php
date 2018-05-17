@@ -16,7 +16,7 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon"><i class="fa fa-user-o"></i></span>
-						<span class="user-name">Johnny Brown</span>
+						<span class="user-name"><?php echo $this->session->userdata('ses_nama'); ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="profile.php"><i class="fa fa-user-md" aria-hidden="true"></i> Profile</a>

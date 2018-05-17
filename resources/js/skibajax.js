@@ -1,13 +1,16 @@
+// Cofigurasi awal
 var baseUrl = window.location.protocol+"//"+window.location.host+"/"; // ambil base url
 var path = window.location.pathname; // ambil path dari url
-
+const main = document.getElementById('isiUtama'); // Mengambil parent pembungkus utama berdasarkan id
+const forms = document.querySelectorAll('.form'); // mengambil semua form berdasarkan class
+// Statment request data tabel untuk masing2 modul
 $(document).ready(function () {
 	switch (path) {
 		case "/skiba/admin/siswa":
-			tableSiswa()
+			requestData('skiba/admin/siswa/tablesiswa','','#contentSiswa');
 			break;
 		case "/skiba/admin/guru":
-			tableGuru()
+			requestData('skiba/admin/guru/tableguru','','#contentGuru');
 			break;
 		case "/skiba/admin/jurusan":
 			requestData('skiba/admin/jurusan/tablejurusan','','#contentJurusan');
@@ -18,11 +21,15 @@ $(document).ready(function () {
 		case "/skiba/admin/mapel":
 			requestData('skiba/admin/mapel/tablemapel','','#contentMapel');
 			break;
+		case "/skiba/admin/jabatan":
+			requestData('skiba/admin/jabatan/tablejabatan','','#contentJabatan');
+			break;
 		default:
 			// statements_def
 			break;
 	}
 })
+// fungsi request data
 function requestData (url,data='',id='',datatipe) {
 	$.ajax({
 		url: baseUrl+url,
@@ -37,183 +44,63 @@ function requestData (url,data='',id='',datatipe) {
 		}
 	})
 }
-function submitData (form,success) {
-	$(form).submit(function (e) {
+// statment untuk push/memasukan data
+main.addEventListener('submit',function (e) {
+	if (e.target.classList.contains('form')==true) {
 		e.preventDefault();
-		var data = $(this).serialize();
-		var url = $(this).attr('action');
+		var url = e.target.getAttribute('action');
+		console.log(url)
+		forms.forEach( function(form) {
+			form.className="form";
+		});
+		e.target.classList.add('activeForm');
+		var data = $('.activeForm').serialize();
+		var pathname = window.location.pathname;
 		$.ajax({
-		url: url,
-		type: "post",
-		data: data,
-		dataType: "json",
-		beforeSend:function () {
-			/* body... */
-		},
-		success: function (response) {
-			swal("Success!", response.pesan, "success");
-			var data = '';
-			switch (success) {
-				case "siswa":
-					tableSiswa();
-					break;
-				case "guru":
-					tableGuru();
-					break;
-				case "jurusan":
-					requestData('skiba/admin/jurusan/tablejurusan','','#contentJurusan');
-					break;
-				case "kelas":
-					requestData('skiba/admin/kelas/tablekelas','','#contentKelas');
-					break;
-				case "mapel":
-					requestData('skiba/admin/mapel/tablemapel','','#contentMapel');
-					break;
-				default:
-					
-					break;
+			url: url,
+			type: 'post',
+			data: data,
+			dataType: 'json',
+			beforeSend: function () {
+				/* body... */
+			},
+			success: function (response) {
+				swal("Success!", response.pesan, "success");
+				switch (pathname) {
+					case '/skiba/admin/siswa':
+						requestData('skiba/admin/siswa/tablesiswa','','#contentSiswa');
+						break;
+					case '/skiba/admin/guru':
+						requestData('skiba/admin/guru/tableguru','','#contentGuru');
+						break;
+					case '/skiba/admin/jurusan':
+						requestData('skiba/admin/jurusan/tablejurusan','','#contentJurusan');
+						break;
+					case '/skiba/admin/kelas':
+						requestData('skiba/admin/kelas/tablekelas','','#contentKelas');
+						break;
+					case '/skiba/admin/mapel':
+						requestData('skiba/admin/mapel/tablemapel','','#contentMapel');
+						break;
+					case '/skiba/admin/jadwal':
+						requestData('skiba/admin/jadwal/tablejadwal','','#contentJadwal');
+						break;
+					case '/skiba/admin/jabatan':
+						requestData('skiba/admin/jabatan/tablejabatan','','#contentJabatan');
+						break;
+					default:
+						// statements_def
+						break;
+				}
+			},
+			error: function () {
+				swal("Oops...", "Something went wrong :(", "error");
 			}
-		},
-		error: function () {
-			swal("Oops...", "Something went wrong :(", "error");
-		}
-	});
-	});
-}
-$('#form').submit(function (e) {
-	e.preventDefault();
-	var url = $(this).attr('action');
-	var data = $(this).serialize();
-	var pathname = window.location.pathname;
-	$.ajax({
-		url: url,
-		type: 'post',
-		data: data,
-		dataType: 'json',
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			swal("Success!", response.pesan, "success");
-			switch (pathname) {
-				case '/skiba/admin/siswa':
-					// statements_1
-					break;
-				case '/skiba/admin/guru':
-					// statements_1
-					break;
-				case '/skiba/admin/jurusan':
-					// statements_1
-					break;
-				case '/skiba/admin/kelas':
-					// statements_1
-					break;
-				case '/skiba/admin/mapel':
-					requestData('skiba/admin/mapel/tablemapel','','#contentMapel');
-					break;
-				case '/skiba/admin/jadwal':
-					// statements_1
-					break;
-				case '/skiba/admin/jabatan':
-					// statements_1
-					break;
-				default:
-					// statements_def
-					break;
-			}
-		},
-		error: function () {
-			swal("Oops...", "Something went wrong :(", "error");
-		}
 
-	});
-});
-// Siswa
-function tableSiswa () {
-	$.ajax({
-		url: baseUrl+"skiba/admin/siswa/tablesiswa",
-		type: "post",
-		dataType: "html",
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			$('#contentSiswa').html(response);
-		}
-	})
-}
-$('#formSiswa').submit(function (e) {
-	e.preventDefault();
-	console.log($(this).serialize());
-	$.ajax({
-		url: baseUrl+"skiba/admin/siswa/tambah",
-		type: "post",
-		data: $(this).serialize(),
-		dataType:"json",
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			swal("Success!", response.pesan, "success");
-			tableSiswa();
-		},
-		error:function(response){
-     		swal("Oops...", "Something went wrong :(", "error");
-      	}
-	})
+		});
+	}
 })
-function editSiswaById (id) {
-	console.log(id)
-	$.ajax({
-		url: baseUrl+"skiba/admin/siswa/siswaedit",
-		type: "post",
-		data: "id="+id,
-		dataType: "html",
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			$('#contentEditSiswa').html(response);
-		}
-	})
-}
-function hapusSiswaById (id) {
-	console.log(id)
-	$.ajax({
-		url: baseUrl+"skiba/admin/siswa/hapus",
-		type: "post",
-		data: "id="+id,
-		dataType: "json",
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			swal("Success!", response.pesan, "success");
-			tableSiswa();
-		}
-	})
-}
-
-// Guru
-function tableGuru () {
-	$.ajax({
-		url: baseUrl+"skiba/admin/guru/tableguru",
-		type: "post",
-		dataType: "html",
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			$('#contentGuru').html(response);
-		}
-	})
-}
-$('#formGuru').submit(function (e) {
-	e.preventDefault();
-	var data = $(this).serialize();
-	var url = baseUrl+"skiba/admin/guru/tambah";
-	submitData(url,data,'guru');
-})
+// fungsi hapus hapus berdasarkan id
 function hapusById (id,url,success) {
 	var conf =  confirm('Apakah anda akin ingin menghapus data ini ?');
 	if (conf==true) {
@@ -225,16 +112,22 @@ function hapusById (id,url,success) {
 		        swal("Berhasil", "Data berhasil di hapus", "success");
 		        switch (success) {
 		        	case "siswa":
-		        		tableSiswa();
+		        		requestData('skiba/admin/siswa/tablesiswa','','#contentSiswa');
 		        		break;
 	        		case "guru":
-		        		tableGuru();
+		        		requestData('skiba/admin/guru/tableguru','','#contentGuru');
 		        		break;
 		        	case "jurusan":
 						requestData('skiba/admin/jurusan/tablejurusan','','#contentJurusan');
 						break;
-					case "jurusan":
-						requestData('skiba/admin/jurusan/tablekelas','','#contentKelas');
+					case "kelas":
+						requestData('skiba/admin/kelas/tablekelas','','#contentKelas');
+						break;
+					case "mapel":
+						requestData('skiba/admin/mapel/tablemapel','','#contentMapel');
+						break;
+					case "jabatan":
+						requestData('skiba/admin/jabatan/tablejabatan','','#contentJabatan');
 						break;
 		        	default:
 		        		// statements_def
@@ -249,65 +142,3 @@ function hapusById (id,url,success) {
 
 	}
 }
-const main = document.getElementById('isiUtama');
-main.addEventListener('submit',function (e) {
-	if (e.target.className=='form') {
-		e.preventDefault();
-		var forms = document.querySelectorAll('.form');
-		var url = e.target.getAttribute('action');
-		for (var i=0; i <= forms.length; i++) {
-			// if (forms[i].classList.contains('active')) {
-			// 	forms.classList.remove('active');
-			// }
-			console.log(forms[i]);
-		}
-		e.target.classList.add('active');
-		console.log($('.active').serialize());
-		// var data = e.target.serialize();
-
-		console.log(e.target);
-		var pathname = window.location.pathname;
-		// $.ajax({
-		// 	url: url,
-		// 	type: 'post',
-		// 	data: data,
-		// 	dataType: 'json',
-		// 	beforeSend: function () {
-		// 		/* body... */
-		// 	},
-		// 	success: function (response) {
-		// 		swal("Success!", response.pesan, "success");
-		// 		switch (pathname) {
-		// 			case '/skiba/admin/siswa':
-		// 				// statements_1
-		// 				break;
-		// 			case '/skiba/admin/guru':
-		// 				// statements_1
-		// 				break;
-		// 			case '/skiba/admin/jurusan':
-		// 				// statements_1
-		// 				break;
-		// 			case '/skiba/admin/kelas':
-		// 				// statements_1
-		// 				break;
-		// 			case '/skiba/admin/mapel':
-		// 				requestData('skiba/admin/mapel/tablemapel','','#contentMapel');
-		// 				break;
-		// 			case '/skiba/admin/jadwal':
-		// 				// statements_1
-		// 				break;
-		// 			case '/skiba/admin/jabatan':
-		// 				// statements_1
-		// 				break;
-		// 			default:
-		// 				// statements_def
-		// 				break;
-		// 		}
-		// 	},
-		// 	error: function () {
-		// 		swal("Oops...", "Something went wrong :(", "error");
-		// 	}
-
-		// });
-	}
-})

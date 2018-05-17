@@ -41,7 +41,7 @@
 			<div class="modal fade" id="tambahGuru" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
-						<form id="formGuru" action="<?php echo base_url('admin/guru/tambah'); ?>" method="post">
+						<form id="form" action="<?php echo base_url('admin/guru/tambah'); ?>" method="post">
 						<div class="modal-header">
 							<h4 class="modal-title" id="myLargeModalLabel">Tambah Data</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

@@ -64,6 +64,11 @@ class MAdmin extends CI_Model {
 		$this->db->join('tb_jabatan', 'tb_guru.guru_jabatan = tb_jabatan.jabatan_kode', 'left');
 		return $this->db->get();
 	}
+	// Login
+	function authUser($username)
+	{
+		return $this->db->query("SELECT  `username`,`password`,`nama`,`akses`,`token` FROM `tb_users` WHERE `username`='$username' LIMIT 1");
+	}
 
 }
 

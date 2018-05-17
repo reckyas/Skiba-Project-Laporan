@@ -1,7 +1,7 @@
-<?php
+ <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Jurusan extends CI_Controller {
+class Jabatan extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
@@ -12,58 +12,55 @@ class Jurusan extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['judul_halaman'] = "Data Jurusan";
+		$data['judul_halaman'] = "Data Jabatan";
 		$this->load->view('template_admin/htmlopen');
 		$this->load->view('template_admin/head',$data);
 		$this->load->view('template_admin/header');
 		$this->load->view('template_admin/sidebar');
 		// Start content
-		$this->load->view('admin/jurusan');
+		$this->load->view('admin/jabatan');
 		// End content
 		$this->load->view('template_admin/footer');
 		$this->load->view('template_admin/contentclose');
 		$this->load->view('template_admin/script.php');
 		$this->load->view('template_admin/htmlclose');
 	}
-	public function tablejurusan()
+	public function tablejabatan()
 	{
-		$data['tb_jurusan'] = $this->MAdmin->getDatas('tb_jurusan')->result();
-		return $this->load->view('components/tableJurusan', $data);
+		$data['tb_jabatan'] = $this->MAdmin->getDatas('tb_jabatan')->result();
+		return $this->load->view('components/tableJabatan', $data);
 	}
 	public function tambah()
 	{
 		$nama = $this->input->post('nama');
-		$kode = $this->input->post('kode');
-		$keterangan = $this->input->post('keterangan');
+		$kode = trim(strtolower($nama));
+		$kode = str_replace(' ', '_', $kode);
 		$data = [
-			"jurusan_nama" => $nama,
-			"jurusan_kode" => $kode,
-			"jurusan_keterangan" => $keterangan
+			"jabatan_nama" => $nama,
+			"jabatan_kode" => $kode
 		];
-		$push = $this->MAdmin->input('tb_jurusan',$data);
+		$push = $this->MAdmin->input('tb_jabatan',$data);
 		if ($push==true) {
 			$msg = ["pesan" => "Data berhasil disimpan"];
 			echo json_encode($msg);
 		}
 	}
-	public function editjurusan()
+	public function editjabatan()
 	{
 		$id = $this->input->post('id');
-		$data['jurusan'] = $this->MAdmin->getData('tb_jurusan','jurusan_id',$id)->row_array();
-		return $this->load->view('components/editJurusan', $data);
+		$data['jabatan'] = $this->MAdmin->getData('tb_jabatan','jabatan_id',$id)->row_array();
+		return $this->load->view('components/editJabatan', $data);
 	}
 	public function edit()
 	{
 		$id = $this->input->post('id');
 		$nama  = $this->input->post('nama');
-		$kode  = $this->input->post('kode');
-		$keterangan  = $this->input->post('keterangan');
+		$kode  = strtolower($nama);
 		$data = [
-			"jurusan_nama" => $nama,
-			"jurusan_kode" => $kode,
-			"jurusan_keterangan" => $keterangan
+			"jabatan_nama" => $nama,
+			"jabatan_kode" => $kode
 		];
-		$push = $this->MAdmin->update('tb_jurusan','jurusan_id',$id,$data);
+		$push = $this->MAdmin->update('tb_jabatan','jabatan_id',$id,$data);
 		if ($push==true) {
 			$msg = ["pesan" => "Data berhasil perbarui"];
 			echo json_encode($msg);
@@ -72,7 +69,7 @@ class Jurusan extends CI_Controller {
 	public function hapus()
 	{
 		$id = $this->input->post('id');
-		$hapus = $this->MAdmin->hapus('tb_jurusan','jurusan_id',$id);
+		$hapus = $this->MAdmin->hapus('tb_jabatan','jabatan_id',$id);
 		$msg=["pesan"=>"Data berhasil dihapus"];
 		echo json_encode($msg);	
 	}

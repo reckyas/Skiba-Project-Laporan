@@ -6,6 +6,9 @@ class Siswa extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('admin/MAdmin');
+		if (!$this->session->userdata('masuk')) {
+			redirect('login');
+		}
 	}
 	public function index()
 	{
@@ -36,7 +39,7 @@ class Siswa extends CI_Controller {
 		$data['tb_jurusan'] = $this->MAdmin->getDatas('tb_jurusan');
 		$data['tb_kelas'] = $this->MAdmin->getDatas('tb_kelas');
 		$data['data'] = $this->MAdmin->getSiswas();
-		return $this->load->view('components/siswa', $data);
+		return $this->load->view('components/tableSiswa', $data);
 	}
 	public function tambah()
 	{
@@ -63,9 +66,8 @@ class Siswa extends CI_Controller {
 			$msg = ["pesan" => "Data berhasil disimpan"];
 			echo json_encode($msg);
 		}
-
 	}
-	public function siswaedit()
+	public function editsiswa()
 	{
 		$id = $this->input->post('id');
 		$data['tb_jurusan'] = $this->MAdmin->getDatas('tb_jurusan');

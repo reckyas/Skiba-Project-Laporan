@@ -8,7 +8,7 @@
 				<nav aria-label="breadcrumb" role="navigation">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Data Master</a></li>
-						<li class="breadcrumb-item">Kelas</li>
+						<li class="breadcrumb-item">Jabatan</li>
 					</ol>
 				</nav>
 			</div>
@@ -29,43 +29,30 @@
 	<div class="html-editor pd-20 bg-white border-radius-4 box-shadow mb-30">
 		<div class="clearfix mb-20">
 			<div class="pull-right">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#tambahKelas" style="font-family: arial;"><i class="fa fa-plus">  Tambah</i></button>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#tambahJabatan" style="font-family: arial;"><i class="fa fa-plus">  Tambah</i></button>
 			</div>
 		</div>
-		<div id="contentKelas" class="card-body" style="padding: 0;">
+		<div id="contentJabatan" class="card-body" style="padding: 0;">
 
 			<!-- Table siswa -->
 
 		</div>
 		<!-- modal tambah -->
-			<div class="modal fade" id="tambahKelas" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal fade" id="tambahJabatan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
-						<form id="form" class="form" action="<?php echo base_url('admin/kelas/tambah'); ?>" method="post">
+						<form id="form" class="form" action="<?php echo base_url('admin/jabatan/tambah'); ?>" method="post">
 						<div class="modal-header">
 							<h4 class="modal-title" id="myLargeModalLabel">Tambah Data</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 						</div>
 						<div class="modal-body">
-								<div class="form-group row">
-									<label class="col-sm-12 col-md-2 col-form-label">Nama Kelas</label>
-									<div class="col-sm-12 col-md-10">
-										<input class="form-control" type="text" name="nama" placeholder="masukan nama kelas">
-									</div>
+							<div class="form-group row">
+								<label class="col-sm-12 col-md-2 col-form-label">Nama Jabatan</label>
+								<div class="col-sm-12 col-md-10">
+									<input class="form-control" type="text" name="nama" placeholder="masukan nama jabatan">
 								</div>
-								<div class="form-group row">
-									<div class="col-sm-12 col-md-2"></div>
-									<div class="col-sm-12 col-md-10">
-										<select name="kode_jurusan" id="kode_jurusan" class="form-control">
-											<option value="">--- Jurusan ---</option>
-											<?php foreach ($tb_jurusan as $jurusan): ?>
-												<option value="<?php echo $jurusan->jurusan_kode; ?>">
-													<?php echo $jurusan->jurusan_nama; ?>
-												</option>
-											<?php endforeach ?>
-										</select>
-									</div>
-								</div>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -75,12 +62,12 @@
 					</div>
 				</div>
 			</div>
-			<!-- Modal edit kelas -->
-			<div class="modal fade" id="editKelas" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<!-- Modal edit guru -->
+			<div class="modal fade" id="editJabatan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content" id="contentEditKelas">
+					<div class="modal-content" id="contentEditJabatan">
 						
-							<!-- Content edit kelas -->
+							<!-- Content Id guru -->
 						
 					</div>
 				</div>

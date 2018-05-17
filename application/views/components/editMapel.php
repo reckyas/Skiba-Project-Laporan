@@ -6,16 +6,16 @@
 	<div class="modal-body">
 		<input type="text" name="id" value="<?php echo $mapel['mapel_id']; ?>" hidden>
 		<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">Nama Jurusan</label>
+			<label class="col-sm-12 col-md-2 col-form-label">Nama Mapel</label>
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" type="text" value="<?php echo $mapel['mapel_nama']; ?>" name="nama" placeholder="">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-12 col-md-2 col-form-label">Kode</label>
+			<label class="col-sm-12 col-md-2 col-form-label">Kode Mapel</label>
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" type="text" name="kode" value="<?php echo $mapel['mapel_kode']; ?>" placeholder="masukan kode">
-			</div>
+			</div>s
 		</div>
 	</div>
 	<div class="modal-footer">

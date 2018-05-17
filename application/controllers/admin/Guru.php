@@ -7,6 +7,9 @@ class Guru extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('admin/MAdmin');
+		if (!$this->session->userdata('masuk')) {
+			redirect('login');
+		}
 	}
 	public function index()
 	{

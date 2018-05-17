@@ -1,4 +1,4 @@
-<form id="formEditGuru" action="<?php echo base_url('admin/jurusan/edit'); ?>">
+<form id="form" class="form" action="<?php echo base_url('admin/jurusan/edit'); ?>">
 	<div class="modal-header">
 		<h4 class="modal-title" id="myLargeModalLabel">Ubah Data</h4>
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -26,6 +26,6 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-		<button class="btn btn-primary" onclick="submitData('#formEditGuru','jurusan')">Simpan</button>
+		<button class="btn btn-primary">Simpan</button>
 	</form>
 	</div>

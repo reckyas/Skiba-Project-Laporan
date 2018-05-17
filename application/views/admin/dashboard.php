@@ -26,5 +26,5 @@
 		</div>
 	</div>
 	<div class="html-editor pd-20 bg-white border-radius-4 box-shadow mb-30">
-		Selamat Datang
+		Selamat Datang <strong><?php echo $this->session->userdata('ses_nama'); ?></strong>
 </div>

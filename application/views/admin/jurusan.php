@@ -41,7 +41,7 @@
 			<div class="modal fade" id="tambahJurusan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
-						<form id="jurusan" class="forms" action="<?php echo base_url('admin/jurusan/tambah'); ?>" method="post">
+						<form id="form" class="form" action="<?php echo base_url('admin/jurusan/tambah'); ?>" method="post">
 						<div class="modal-header">
 							<h4 class="modal-title" id="myLargeModalLabel">Tambah Data</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -68,7 +68,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-							<button type="submit" class="btn btn-primary simpan" onclick="submitData('#jurusan','jurusan')">Simpan</button>
+							<button type="submit" class="btn btn-primary simpan">Simpan</button>
 						</form>
 						</div>
 					</div>

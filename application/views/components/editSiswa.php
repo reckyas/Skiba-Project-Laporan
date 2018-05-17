@@ -1,4 +1,4 @@
-<form id="formEditSiswa">
+<form id="form" class="form" action="<?php echo base_url('admin/siswa/edit') ?>">
 	<div class="modal-header">
 		<h4 class="modal-title" id="myLargeModalLabel">Ubah Data</h4>
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -26,6 +26,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">Jenis Kelamin</label>
 			<div class="col-sm-12 col-md-10">
+				<input type="text" id="siswa_jk" value="<?php echo $data['siswa_jk']; ?>" hidden>
 				<select name="jk" value="<?php echo $data['siswa_jk']; ?>" class="form-control">
 					<option value="">---Gender---</option>
 					<option value="L">Laki-laki</option>
@@ -42,9 +43,10 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">Jurusan</label>
 			<div class="col-sm-12 col-md-10">
+				<input type="text" id="siswa_jurusan" value="<?php echo $data['siswa_jurusan']; ?>" hidden>
 				<select name="jurusan" class="form-control" value="<?php echo $data['siswa_jurusan']; ?>">
+					<option value="">---Jurusan---</option>
 					<?php foreach ($tb_jurusan->result() as $jurusan): ?>
-						<option value="">---Jurusan---</option>
 						<option value="<?php echo $jurusan->jurusan_kode; ?>">
 							<?php echo $jurusan->jurusan_nama; ?>
 						</option>
@@ -55,9 +57,10 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">Kelas</label>
 			<div class="col-sm-12 col-md-10">
-				<select name="kelas" class="form-control" value="<?php echo $data['siswa_kelas']; ?>">
+				<input type="text" id="kelas" value="<?php echo $data['siswa_kelas'] ?>" hidden>
+				<select name="kelas" class="form-control" value="<?php echo $data['siswa_kelas']; ?>" >
+					<option value="">---Kelas---</option>
 					<?php foreach ($tb_kelas->result() as $kelas): ?>
-						<option value="">---Kelas---</option>
 						<option value="<?php echo $kelas->kelas_kode; ?>">
 							<?php echo $kelas->kelas_nama; ?>
 						</option>
@@ -73,30 +76,15 @@
 		</div>
 
 <script>
-	var jk = $('[name=jk]').val();
-	$('[name=jk]').val(jk).change();
-	var jurusan = $('[name=jurusan]').val();
-	$('[name=jurusan]').val(jurusan).change();
-	var kelas = $('[name=kelas]').val();
-	$('[name=kelas]').val(kelas).change();
-
-	$('#formEditSiswa').submit(function (e) {
-	e.preventDefault();
-	$.ajax({
-		url: baseUrl+"skiba/admin/siswa/edit",
-		type: "post",
-		data: $(this).serialize(),
-		dataType: "json",
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			swal("Success!", response.pesan, "success");
-			// window.location.href=baseUrl+"skiba/admin/siswa";
-		} ,
-		error:function(response){
-     		swal("Oops...", "Something went wrong :(", "error");
-      	}
+	$(document).ready(function () {
+		var jurusan = document.getElementById('siswa_jurusan');
+		var kelas = document.getElementById('kelas');
+		var jk = document.getElementById('siswa_jk');
+		jurusan = jurusan.getAttribute('value');
+		$('[name=jurusan]').val(jurusan).change();
+		kelas = kelas.getAttribute('value');
+		$('[name=kelas]').val(kelas).change();
+		jk = jk.getAttribute('value');
+		$('[name=jk]').val(jk).change();
 	})
-})
 </script>

@@ -1,4 +1,4 @@
-<form id="formEditGuru">
+<form id="form" class="form" action="<?php echo base_url('admin/guru/edit') ?>" method="post">
 	<div class="modal-header">
 		<h4 class="modal-title" id="myLargeModalLabel">Ubah Data</h4>
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -32,6 +32,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">Mapel</label>
 			<div class="col-sm-12 col-md-10">
+				<input type="text" id="guru_mapel" value="<?php echo $data['guru_mapel']; ?>" hidden>
 				<select name="mapel" class="form-control" value="<?php echo $data['guru_mapel']; ?>">
 					<option value="">---Mapel---</option>
 					<?php foreach ($tb_mapel->result() as $mapel): ?>
@@ -45,6 +46,7 @@
 		<div class="form-group row">
 			<label class="col-sm-12 col-md-2 col-form-label">Jabatan</label>
 			<div class="col-sm-12 col-md-10">
+				<input type="text" id="guru_jabatan" value="<?php echo $data['guru_jabatan']; ?>" hidden>
 				<select name="jabatan" class="form-control" value="<?php echo $data['guru_jabatan']; ?>">
 					<option value="">---Jabatan---</option>
 					<?php foreach ($tb_jabatan->result() as $jabatan): ?>
@@ -64,36 +66,11 @@
 
 <script>
 	$(document).ready(function () {
-		var id = $('[name=id]').val();
-		$.ajax({
-			url:"<?php echo base_url('admin/guru/dataguru') ?>",
-			type: 'post',
-			data: 'id='+id,
-			dataType:'json',
-			success: function (data) {
-				console.log(data[0].guru_mapel);
-				$('[name=mapel]').val(data[0].guru_mapel);
-				$('[name=jabatan]').val(data[0].guru_jabatan);
-			}
-		})
+		var mapel = document.getElementById('guru_mapel');
+		var jabatan = document.getElementById('guru_jabatan')
+		mapel = mapel.getAttribute('value');
+		$('[name=mapel]').val(mapel).change();
+		jabatan = jabatan.getAttribute('value');
+		$('[name=jabatan]').val(jabatan).change();
 	})
-	$('#formEditGuru').submit(function (e) {
-	e.preventDefault();
-	$.ajax({
-		url: "<?php echo base_url('admin/guru/edit') ?>",
-		type: "post",
-		data: $(this).serialize(),
-		dataType: "json",
-		beforeSend: function () {
-			/* body... */
-		},
-		success: function (response) {
-			swal("Success!", response.pesan, "success");
-			tableGuru();
-		} ,
-		error:function(response){
-     		swal("Oops...", "Something went wrong :(", "error");
-      	}
-	})
-})
 </script>
